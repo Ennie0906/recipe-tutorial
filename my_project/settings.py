@@ -38,11 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     # Apps
-
     'home',
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'my_project.urls'
@@ -128,3 +135,27 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Account Setup
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/'
+
+
+AUTHENTICATION_BACKENDS = [
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+  
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.gitpod.io',
+]
+
+
+
